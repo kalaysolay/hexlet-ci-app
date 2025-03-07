@@ -12,13 +12,13 @@ jobs:
       # экшен — выполняет какую-то задачу
       # checkout — клонирует репозиторий
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-      - uses:  hexlet-components/hello-from-hexlet-action@release
-      # run – произвольная bash-команда
-      # ls -la выведет содержимое текущего репозитория
-      - run: make setup
-      - name: run tests
-        run: make test
-      - name: run lint
-        run: make lint
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: make install
+      - run: make lint
+      - run: make test
+      - uses: hexlet-components/hello-from-hexlet-action@release
 
